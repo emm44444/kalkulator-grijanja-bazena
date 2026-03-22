@@ -350,13 +350,30 @@
 
   <script>
     const aquachemModels = [
-      { model: "MPXC100", naziv: "Mr. Silence 30", snaga: 10.2, minVol: 20, maxVol: 35 },
-      { model: "MPXC120", naziv: "Mr. Silence 30", snaga: 12.0, minVol: 25, maxVol: 45 },
-      { model: "MPXC150", naziv: "Mr. Silence 30", snaga: 15.0, minVol: 30, maxVol: 55 },
-      { model: "MPXC170", naziv: "Mr. Silence 30", snaga: 17.5, minVol: 35, maxVol: 65 },
-      { model: "MPXC190", naziv: "Mr. Silence 30", snaga: 19.5, minVol: 40, maxVol: 75 },
-      { model: "MPXC230", naziv: "Mr. Silence 30", snaga: 23.0, minVol: 45, maxVol: 80 }
+      { brand: "Aquachem", model: "MPXC100", naziv: "Mr. Silence 30", snaga: 10.2, minVol: 20, maxVol: 35 },
+      { brand: "Aquachem", model: "MPXC120", naziv: "Mr. Silence 30", snaga: 12.0, minVol: 25, maxVol: 45 },
+      { brand: "Aquachem", model: "MPXC150", naziv: "Mr. Silence 30", snaga: 15.0, minVol: 30, maxVol: 55 },
+      { brand: "Aquachem", model: "MPXC170", naziv: "Mr. Silence 30", snaga: 17.5, minVol: 35, maxVol: 65 },
+      { brand: "Aquachem", model: "MPXC190", naziv: "Mr. Silence 30", snaga: 19.5, minVol: 40, maxVol: 75 },
+      { brand: "Aquachem", model: "MPXC230", naziv: "Mr. Silence 30", snaga: 23.0, minVol: 45, maxVol: 80 }
     ];
+
+    const mrPerfectModels = [
+      { brand: "Aquark", model: "MP070", naziv: "Mr. Perfect", snaga: 7.0, minVol: 10, maxVol: 25 },
+      { brand: "Aquark", model: "MP090", naziv: "Mr. Perfect", snaga: 9.0, minVol: 15, maxVol: 30 },
+      { brand: "Aquark", model: "MP110", naziv: "Mr. Perfect", snaga: 11.5, minVol: 20, maxVol: 45 },
+      { brand: "Aquark", model: "MP140", naziv: "Mr. Perfect", snaga: 14.0, minVol: 30, maxVol: 55 },
+      { brand: "Aquark", model: "MP170", naziv: "Mr. Perfect", snaga: 17.0, minVol: 35, maxVol: 65 },
+      { brand: "Aquark", model: "MP190", naziv: "Mr. Perfect", snaga: 18.5, minVol: 40, maxVol: 75 },
+      { brand: "Aquark", model: "MP220", naziv: "Mr. Perfect", snaga: 22.5, minVol: 40, maxVol: 80 },
+      { brand: "Aquark", model: "MP270", naziv: "Mr. Perfect", snaga: 26.5, minVol: 50, maxVol: 95 },
+      { brand: "Aquark", model: "MP270S", naziv: "Mr. Perfect", snaga: 26.5, minVol: 50, maxVol: 95 },
+      { brand: "Aquark", model: "MP320", naziv: "Mr. Perfect", snaga: 31.5, minVol: 60, maxVol: 120 },
+      { brand: "Aquark", model: "MP320S", naziv: "Mr. Perfect", snaga: 31.5, minVol: 60, maxVol: 120 },
+      { brand: "Aquark", model: "MP410S", naziv: "Mr. Perfect", snaga: 40.5, minVol: 85, maxVol: 160 }
+    ];
+
+    const allPumpModels = [...aquachemModels, ...mrPerfectModels];
 
     let currentResult = null;
 
@@ -539,8 +556,8 @@
     function operatingFactor(mode) { return mode === 'cjelogodisnji' ? 1.3 : 1.0; }
 
     function choosePump(requiredKw, volume) {
-      const byPower = aquachemModels.filter(p => p.snaga >= requiredKw);
-      if (!byPower.length) return aquachemModels[aquachemModels.length - 1];
+      const byPower = allPumpModels.filter(p => p.snaga >= requiredKw);
+      if (!byPower.length) return allPumpModels[allPumpModels.length - 1];
       const ideal = byPower.find(p => volume >= p.minVol && volume <= p.maxVol);
       return ideal || byPower[0];
     }
@@ -635,7 +652,7 @@
         document.getElementById('mKlima').textContent = climateZone;
 
         document.getElementById('preporuka').innerHTML = `
-          <div style="margin-top:8px"><strong>${pump.model}</strong> · ${pump.naziv}</div>
+          <div style="margin-top:8px"><strong>${pump.model}</strong> · ${pump.naziv}</div><div>Serija / brand: <strong>${pump.brand || 'Aquachem'}</strong></div>
           <div>Snaga: <strong>${round(pump.snaga)} kW</strong></div>
           <div>Preporučeni raspon volumena bazena: <strong>${pump.minVol} – ${pump.maxVol} m³</strong></div>
           <div class="small" style="margin-top:8px;">Model je odabran na temelju izračunate potrebne snage i volumena bazena.</div>
@@ -667,7 +684,7 @@
           ['Toplinski gubici', `${round(currentResult.gubici)} kW`],
           ['Ukupna potrebna snaga', `${round(currentResult.ukupno)} kW`],
           ['Preporučena snaga s rezervom', `${round(currentResult.preporuceno)} kW`],
-          ['Preporučeni Aquachem model', `${pump.model} (${round(pump.snaga)} kW)`]
+          ['Preporučeni model', `${pump.model} · ${pump.naziv} (${round(pump.snaga)} kW)`]
         ];
         renderTable(rows);
 
@@ -695,7 +712,7 @@ Volumen bazena: ${round(currentResult.volumen)} m3
 Željena temperatura vode: ${round(currentResult.zeljenaTemp)} °C
 Procijenjena početna temperatura vode: ${round(currentResult.vodovod)} °C
 Potrebna snaga s rezervom: ${round(currentResult.preporuceno)} kW
-Preporučeni model: ${currentResult.pumpa.model} (${round(currentResult.pumpa.snaga)} kW)
+Preporučeni model: ${currentResult.pumpa.model} · ${currentResult.pumpa.naziv} (${round(currentResult.pumpa.snaga)} kW)
 
 Molim ponudu i rok isporuke.
 
@@ -711,8 +728,6 @@ Lijep pozdrav`
       document.getElementById('tipBazena').value = 'skimmer';
       document.getElementById('pokrivka').value = 'da';
       document.getElementById('rezimRada').value = 'ljetni';
-      document.getElementById('zeljenaTemp').value = '28';
-      document.getElementById('vrijemeZagrijavanja').value = '48';
       currentResult = null;
       document.getElementById('mVol').textContent = '-';
       document.getElementById('mSnaga').textContent = '-';
