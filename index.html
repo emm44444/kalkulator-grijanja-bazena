@@ -273,22 +273,22 @@ function getModels(){
     const fmt=(v,d=2)=>new Intl.NumberFormat('hr-HR',{minimumFractionDigits:d,maximumFractionDigits:d}).format(v);
     function setStatus(text,badge='Gotovo'){ $('statusText').textContent=text; $('statusBadge').textContent=badge; }
     function oznaciPraznaPolja() {
-  let prazno = false;
+    let prazno = false;
 
-  document.querySelectorAll('input:not([readonly]), select').forEach(el => {
+    document.querySelectorAll('input:not([readonly]), select').forEach(el => {
 
-    // preskoči ako je element stvarno skriven (display:none)
-    if (el.offsetParent === null) return;
+      // preskoči ako je element stvarno skriven (display:none)
+      if (el.offsetParent === null) return;
 
-    if (!el.value || el.value.trim() === '') {
-      el.classList.add('blink');
-      prazno = true;
+      if (!el.value || el.value.trim() === '') {
+        el.classList.add('blink');
+        prazno = true;
 
-      setTimeout(() => {
-        el.classList.remove('blink');
-      }, 2000);
-    }
-  });
+        setTimeout(() => {
+          el.classList.remove('blink');
+        }, 2000);
+      }
+    });
 
   return prazno;
 }
