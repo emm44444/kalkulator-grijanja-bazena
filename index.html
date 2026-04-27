@@ -35,6 +35,16 @@
     .small{font-size:12px;color:var(--muted)}.accent-box{margin-top:14px;border:1px solid #d6e6fb;background:#f7fbff;padding:14px;border-radius:14px}
     @media (max-width:980px){.grid{grid-template-columns:1fr}.field-grid,.field-grid.three,.field-grid.four,.metrics{grid-template-columns:1fr}.topbar{flex-direction:column;align-items:flex-start}.company{text-align:left}}
     @media print{body{background:#fff}.wrap{max-width:none;padding:0}.topbar,.card{box-shadow:none}.actions{display:none!important}.grid{grid-template-columns:1fr}}
+    @keyframes blinkBlue {
+    0% { background-color: #ffffff; }
+    50% { background-color: #cfe8ff; }
+    100% { background-color: #ffffff; }
+    }
+
+  .blink {
+  animation: blinkBlue 0.6s ease-in-out 3;
+  border-color: #0b5cab !important;
+  }
   </style>
 </head>
 <body>
@@ -133,27 +143,36 @@
             </div>
           </div>
 
-          <div class="field-grid three" style="margin-top:14px;">
+         <div class="field-grid three" style="margin-top:14px;">
+          <div class="field">
+            <label for="customVrijemeZagrijavanja">Unos vremena početnog zagrijavanja [h]</label>
+            <select id="customVrijemeZagrijavanja">
+              <option value="48" selected>48 h</option>
+              <option value="72">72 h</option>
+            </select>
+            <div class="hint">Na temelju tog vremena računa se potrebna snaga za početno zagrijavanje.</div>
+          </div>
+        </div>
+
+        <div class="details-section hidden" id="detailsStartPolja">
+          <div class="field-grid two" style="margin-top:14px;">
             <div class="field">
               <label for="autoVrijemeZagrijavanja">Vrijeme početnog zagrijavanja pri snazi održavanja [h]</label>
               <input id="autoVrijemeZagrijavanja" type="number" step="0.1" readonly />
               <div class="hint">Izračunava se automatski iz volumena, ΔT i dobivene snage održavanja.</div>
             </div>
-            <div class="field">
-              <label for="customVrijemeZagrijavanja">Unos vremena početnog zagrijavanja [h]</label>
-              <input id="customVrijemeZagrijavanja" type="number" step="0.1" value="24" />
-              <div class="hint">Na temelju tog vremena računa se potrebna snaga za početno zagrijavanje.</div>
-            </div>
+
             <div class="field">
               <label for="izracunataStartSnaga">Snaga za početno zagrijavanje prema unesenom vremenu [kW]</label>
               <input id="izracunataStartSnaga" type="number" step="0.1" readonly />
             </div>
           </div>
+        </div>
 
           <div class="actions">
             <button class="btn-primary" onclick="izracunaj()">Izračunaj</button>
             <button class="btn-secondary" onclick="dohvatiTemperaturuTla()">Dohvati temperaturu tla</button>
-            <button class="btn-ghost" onclick="ucitajPrimjer()">Učitaj primjer</button>
+            <button class="btn-ghost hidden" onclick="ucitajPrimjer()">Učitaj primjer</button>
             <button class="btn-ghost" onclick="ocistiSve()">Očisti</button>
             <button class="btn-ghost" onclick="toggleDetalji()">Detalji</button> <button class="btn-print" onclick="window.print()">Ispis / PDF</button>
           </div>
@@ -253,6 +272,22 @@ function getModels(){
     const val=id=>$(id).value.trim();
     const fmt=(v,d=2)=>new Intl.NumberFormat('hr-HR',{minimumFractionDigits:d,maximumFractionDigits:d}).format(v);
     function setStatus(text,badge='Gotovo'){ $('statusText').textContent=text; $('statusBadge').textContent=badge; }
+    function oznaciPraznaPolja() {
+  let prazno = false;
+
+  document.querySelectorAll('input:not([readonly]), select').forEach(el => {
+    if (!el.value || el.value.trim() === '') {
+      el.classList.add('blink');
+      prazno = true;
+
+      setTimeout(() => {
+        el.classList.remove('blink');
+      }, 2000);
+    }
+  });
+
+  return prazno;
+}
     function renderRows(rows){ document.querySelector('#rezultatTablica tbody').innerHTML=rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join(''); }
     function choosePump(requiredKw){
   const models = getModels();
@@ -286,7 +321,11 @@ function getModels(){
     async function geocodeLocation(query){ const variants=normalizeLocationVariants(query); let lastError=null; for(const q of variants){ try{ const url=`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=5&language=hr&format=json`; const response=await fetch(url); if(!response.ok) throw new Error('Greška pri geokodiranju lokacije.'); const data=await response.json(); if(data&&data.results&&data.results.length){ return data.results.find(r=>(r.name||'').toLowerCase()===q.toLowerCase())||data.results[0]; } }catch(err){ lastError=err; } } throw lastError||new Error('Lokacija nije pronađena.'); }
     async function fetchSoilTempAverage(lat,lon,startDate,endDate){ const url=`https://archive-api.open-meteo.com/v1/archive?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}&start_date=${startDate}&end_date=${endDate}&daily=soil_temperature_7_to_28cm_mean&timezone=auto`; const response=await fetch(url); if(!response.ok) throw new Error('Neuspješno dohvaćanje temperature tla.'); const data=await response.json(); const arr=(data&&data.daily&&data.daily.soil_temperature_7_to_28cm_mean)||[]; const valid=arr.filter(v=>typeof v==='number'&&!Number.isNaN(v)); if(!valid.length) throw new Error('Za lokaciju nema dostupnih podataka o temperaturi tla.'); return valid.reduce((a,b)=>a+b,0)/valid.length; }
     async function dohvatiTemperaturuTla(){ const location=val('lokacijaBazena'); const period=val('periodKoristenja'); if(!location){ setStatus('Unesi lokaciju bazena prije dohvaćanja temperature tla.','Greška'); return SOIL_FALLBACK; } setStatus('Dohvaćam temperaturu tla prema lokaciji i periodu...','Radim'); try{ const geo=await geocodeLocation(location); const ranges=getSeasonRanges(period); const values=[]; for(const range of ranges){ values.push(await fetchSoilTempAverage(geo.latitude,geo.longitude,range.start,range.end)); } const avg=values.reduce((a,b)=>a+b,0)/values.length; $('temperaturaTla').value=avg.toFixed(1); $('izvorTemperatureTla').value=`${geo.name}${geo.admin1?', '+geo.admin1:''} · ${period==='summer'?'ljetni period':'rano proljeće i kasna jesen'}`; setStatus(`Temperatura tla dohvaćena za lokaciju ${geo.name}.`,'Gotovo'); return avg; }catch(err){ $('temperaturaTla').value=SOIL_FALLBACK.toFixed(1); $('izvorTemperatureTla').value='Fallback 12 °C'; setStatus('Nisam uspio dohvatiti temperaturu tla. Korišten fallback 12 °C.','Fallback'); return SOIL_FALLBACK; } }
-    async function izracunaj(){ try{ const oblik=val('oblikBazena'), tip=val('tipBazena'), sustav=val('sustavBazena'), temperaturaVode=num('temperaturaVode'), customVrijeme=num('customVrijemeZagrijavanja'); if(temperaturaVode<=0) throw new Error('Unesi željenu temperaturu vode.'); if(customVrijeme<=0) throw new Error('Vrijeme početnog zagrijavanja mora biti veće od 0 h.'); let povrsina=0, opseg=0, dubina=0; if(oblik==='regular'){ const sirina=num('sirina'), duzina=num('duzina'); dubina=num('dubinaRegular'); if(sirina<=0||duzina<=0||dubina<=0) throw new Error('Unesi širinu, dužinu i dubinu pravilnog bazena.'); povrsina=sirina*duzina; opseg=2*(sirina+duzina); } else { povrsina=num('povrsinaIrregular'); dubina=num('dubinaIrregular'); if(povrsina<=0||dubina<=0) throw new Error('Unesi površinu i dubinu nepravilnog bazena.'); opseg=4*Math.sqrt(povrsina); }
+    async function izracunaj(){ try{
+      if (oznaciPraznaPolja()) {
+        setStatus('Neka polja nisu unesena!', 'Greška');
+        return;
+    } const oblik=val('oblikBazena'), tip=val('tipBazena'), sustav=val('sustavBazena'), temperaturaVode=num('temperaturaVode'), customVrijeme=num('customVrijemeZagrijavanja'); if(temperaturaVode<=0) throw new Error('Unesi željenu temperaturu vode.'); if(customVrijeme<=0) throw new Error('Vrijeme početnog zagrijavanja mora biti veće od 0 h.'); let povrsina=0, opseg=0, dubina=0; if(oblik==='regular'){ const sirina=num('sirina'), duzina=num('duzina'); dubina=num('dubinaRegular'); if(sirina<=0||duzina<=0||dubina<=0) throw new Error('Unesi širinu, dužinu i dubinu pravilnog bazena.'); povrsina=sirina*duzina; opseg=2*(sirina+duzina); } else { povrsina=num('povrsinaIrregular'); dubina=num('dubinaIrregular'); if(povrsina<=0||dubina<=0) throw new Error('Unesi površinu i dubinu nepravilnog bazena.'); opseg=4*Math.sqrt(povrsina); }
       let temperaturaTla=num('temperaturaTla'); if(!temperaturaTla||temperaturaTla===SOIL_FALLBACK) temperaturaTla=await dohvatiTemperaturuTla(); if(temperaturaVode<=temperaturaTla) throw new Error('Željena temperatura vode mora biti veća od temperature tla.');
       let volumen=povrsina*dubina; const volumenOsnovni=volumen; if(sustav==='overflow') volumen*=1.10; const brojKupaca=povrsina/2.7, povrsinaZidova=opseg*dubina; let isparavanje=0.3; if(tip==='closed') isparavanje=0.2; if(tip==='windy') isparavanje=0.4; const deltaT=temperaturaVode-temperaturaTla;
       const Qg_kW=((povrsina+povrsinaZidova)*K*deltaT)/1000; let Qi_kW=(isparavanje*povrsina*Q_ISP)/3600; if(val('pokrivkaBazena')==='yes') Qi_kW*=0.60;
@@ -315,7 +354,7 @@ function getModels(){
     function ocistiSve(){ $('oblikBazena').value='regular'; $('tipBazena').value='open'; $('sustavBazena').value='skimmer'; $('sirina').value=''; $('duzina').value=''; $('dubinaRegular').value=''; $('povrsinaIrregular').value=''; $('dubinaIrregular').value=''; $('temperaturaVode').value='28'; $('lokacijaBazena').value=''; $('periodKoristenja').value='shoulder'; $('temperaturaTla').value=SOIL_FALLBACK.toFixed(1); $('izvorTemperatureTla').value='Ručno/fallback 12 °C'; $('customVrijemeZagrijavanja').value='24'; $('autoVrijemeZagrijavanja').value=''; $('izracunataStartSnaga').value=''; $('mStart').textContent='-'; $('mNormal').textContent='-'; $('mRequired').textContent='-'; $('mModel').textContent='-'; $('preporuka').textContent='-'; $('formulaBox').textContent='Formula će biti prikazana nakon izračuna.'; renderRows([]); renderCatalog(Infinity,null); updateShapeFields(); setStatus('Polja su očišćena.','Spremno'); }
 
     function toggleDetalji(){
-      ['detailsNapomena','detailsTablica'].forEach(id=>{
+      ['detailsNapomena','detailsTablica','detailsStartPolja'].forEach(id=>{
         const el = document.getElementById(id);
         if (el) el.classList.toggle('hidden');
       });
