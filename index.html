@@ -276,6 +276,10 @@ function getModels(){
   let prazno = false;
 
   document.querySelectorAll('input:not([readonly]), select').forEach(el => {
+
+    // preskoči ako je element stvarno skriven (display:none)
+    if (el.offsetParent === null) return;
+
     if (!el.value || el.value.trim() === '') {
       el.classList.add('blink');
       prazno = true;
