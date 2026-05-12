@@ -15,7 +15,7 @@
     .wrap{max-width:1460px;margin:0 auto;padding:24px}
     .topbar{background:var(--card);border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px}
     .brand{display:flex;gap:16px;align-items:center}.q-logo{width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;display:grid;place-items:center;font-size:32px;font-weight:800;box-shadow:var(--shadow);flex:0 0 auto}
-    h1{margin:0;font-size:28px}.subtitle{color:var(--muted);margin-top:6px}.company{text-align:right;color:var(--muted);font-size:14px;line-height:1.5}
+    h1{margin:0;font-size:28px}.subtitle{color:var(--muted);margin-top:6px}.company{text-align:left;color:var(--muted);font-size:14px;line-height:1.5}
     .grid{display:grid;grid-template-columns:1.06fr .94fr;gap:20px}.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-bottom:20px}
     .section-title{margin:0 0 14px;font-size:18px;color:var(--brand-dark)}
     .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}.field-grid.three{grid-template-columns:1fr 1fr 1fr}.field-grid.four{grid-template-columns:1fr 1fr 1fr 1fr}.field.full{grid-column:1 / -1}
@@ -53,14 +53,14 @@
       <div class="brand">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAAA8CAYAAADha7EVAAAQAElEQVR4AexdC5xTxdU/595kEVnYZFlEq7a+qtVqK2Kx6OeDWpFkQWurVLS1fp8/EU1WxSr6s7VdtV/7+fgQ3exqrV9Lf1qK9OEDksVXQW0pRW3VT+tbsaU8ZNncwMKyu8k9/Z+bh9kku4TdBFbN/c25M3PmzJm5c8/MnDkzNzE8wYhUoN82WE6Vq2wtYJSNc4VxpQWKaIGKABbRSBWS8rVARQDL17YVzkW0QEUAi2ikCkn5WqAigOVr2wrnIlrgkyuARTROhaT8LbA7BLCbmJ4ikR+R8NfJlnHxuDnWYKoZtodZbbuN0SaZhzORX4SuI5Lfoxk2AyruY9gCxq56JiFaCaG7AII2xmryf9Vqrr/BavY9ZLXUv+jaY1t3Im7XbeuM7zusK1G1KXT669GQvzXW7L/FCtV/w+req04FEnV9GJAAVNzHpAV2gQDKKiKeFAv5J0Lo7m9v8m+mxmWumkB4OgzgiwDrKT4syqbxjsn8Ro/B64CLAR73NkSCtQ2RUXTvsT0qkFbIf1ZC5Agi+g2g4j4GLVBOAewiodlW3XMTrZAvs5vgbWid4WnrfJeZH0T7nQMYC8h1o4A4DVNwky30L29D5HpqiAwDjrY0178JQZzObEzFqLpecRX46LZAuQRwnW3ziVazfx41NtraPJ+auXhPbzCyUEQWIL4/oFhXDUH8b4/QiprgYwemM0WbpoTdLuMY0ak9jfwI+LWB1om1gaWfH2hVRwcf+5ynIXJBTTAyRztmTUPrJcpTZ5X+eI65LLz3yMCToz1XPuQZe/VjI5RewyOueGTsARcu2yM3b92VS/fR9DGXLavWdA1XN0TG5NLlxc9ZZHoC4TNHzV5am5dWAFEOAfyXbRsnbW7xPZcur27OIyO3VplPQli+mcYNwD+GKfHsyCtaD0vnbZs3Zd2I7sSpJLwsjRvKPtSK5TbLCpsTs3eqnjOfd3sDkUuR/80EJV4mm84moRohNlhkIniGMau0oYPfUj3rsb0K8e5hOtTk7rkUHxbt2p7oAH0Px4ctdNtVPstj5QlgokfGSXzYgh6jc4tV3dlJiT1+ZNhyUCHeadwBEGTP2Op1xPyw2W0X9a5LLYAdWGRM3twy5W1KX+gRPZ1Vi7CImJhGDcLf14zL0uyeuPbeadtcI7rPFKLXBsF312Rl2jNZEJ+jLysZ7v8OHXg/T9UHfxGmFjzj22jfgzCznIEF2vesJt+PoI5c6OkY/inMEs1Iv9rlSrwG/fq0XK5Wc/0zoP0OBPcFTQPta9G6VX7wmG/NO8tSXDZEm32R2IaOacC9hTyLQRfc3Fz/F8T7dN1VHSpPI5RAiL+l/o5AM+yIpuh0NNJ/tjf5/56dwbvXiDnopVOycYMKMx3gEvp5No+2W8/cIkbiTOA6AUPSeYPho/Ai/4HKxQGjotXb9eUi2LfT6RE6sOrP44RooQoE2ndNbo7V8ydtV4EU4plIq2XmMKboryCc5/CO3kohX0qrR6l4vveb6WpxWAF+K/IT8zFbq1wzQLvESWE5vubSJf2OmEpn6K1E8LtYk/+32bxUZxPmH2bjShSe6mlo/Xo2r813TXuLmG7Ixg2lsM18KUav24Xoca0XM52vfn+A6fGnSD8YsM5kuoSSAoFoYRcL+f4PKQ8B3JhxFnhnPlGDcC8HfJci0r6G+wWmKPT27f3SpBKZ5Nt2PDEL0XUAYpd5nvr9QakEMAG9D0bj3kUxJX4IjLN6hV9Sx7b8GD24V/2t0R1NKOR9wJByqvRjFhiP0WulwaSLMCIRf3+Kek0wfCxodFTHwElzkbc4YzwbN6YefixV9QRT4YF7IrFiMnsuCx+Niq6J3T01iodb6OQR+bbj93Pr9QL7odtBkvy6l94H6jqsouDtsAeAZkBOmA7zbvySv1fmxundwvyTXrghENm+3T5X2HBmB1di+COokqoKbrMnMR3hgo6ZMyOkm1xJoS1I2RtpNU15CZhXAZAHKlv7K/9sEJNnCidVIwxGv06lHTrqstYvpcIFvdIIoNDPcrnHexIzgHMDyuaE+Du5zE0SfXh9wblJuzEuF1Ul7Pu1AhtbJnVg+ntUwyJGnyMEFhVfVhrA+22hyWvh74STlSniI2rVkJ+KlMtzRniiE2J1q5ZrGZuTFhBnIWoYkulImpYLpRDADVaz/9lcxsScp2Tn0QwWwTSFGhdVZbNxpipmR8/Kxu+usE5NLNS2saV+fboO6DjJEU0V9SzbZjpdfQjpPik/k0/jRYGQo4MpbY/BDh8Nlwt0hCfh30Mlcmy+qXJ0INDgDIIlRAOFYNACKESwwaGJs7knheKEbFSZwtW1G0eOz+UNZfjJXNzuiuvUREzjPMHwi2mAjvRj1Md5WQYl+p0mQYQmBvXOOIORLZmhKmFAlpPhct2h316KZzov/Xzqo6xzAer2qh0zIs8spAkKgxZAFJ4xOCtDBc+m6s/DL+v0C/6OE7KPcQJZN2b7r1nR3RasgwEeXfOManfHoVao/ugPwX8k2i2ptggVnoaZPtCKQ3oKGpY1rS9Amfuk0+xuIzMapnGl9GsuXzKemeJWyH+Y1fsZD0U5zntAHyj8jCAYvAAa/Bb49HIifEgvRBkjYhh5tqaexB5vlLHIoln3bHWrHvzkmjum5+mkYrAzRUFxP8xZ8eZyFUobfQ/qa3cjN0s6Dp7HpcJvRu89rahVbIq+gMcGZY2ouQSGbVyC1fr9uXgnnlrxoxOdOQZbeg4u5zZoAbRF8noYpsC9c8opW1TEzvT2dCFbmr+6CeHMNITwbnEYGS7B6veBQoVbo1ep3rxW07jArgHD8KxpCi63nZ7ONNovjL5syeEk9IUUkR74SAXTnqghHCTSS3dOp+b6qMfemNCd0Tg3TUd46AdnQ89clJumcQiXlg8SGhE3tn9NcbkAmlzUzsVdtmzNzSFCqS2n3JTSx5mNvsraUvrSiueYGtX2jo1e+YeCuRobbWJO2suIzs1V1KMh/5/w8pOLKZGrdKVZkE8OMm4Y30+h2hNSdWcqnPEwPb+jESY+Sv1+obHREKLJZCZeKUSX2ObCCldWdDT5NxZKx4JQd220oyFZCm7NDVoAhV35PPoZslGTT4jj2Uy0ILkyLPzIGL2daRipY71jqyfD7+WY6SIg/gX4TNf2OIQJkysifTlsv30TZeqixoaO+Z3UTNCL3GaXCn03kEd6gpGCoxLSHAc767UEXTR619R8AYRwogddLsSFp1+HA5EwOyt+ITqtLvj4p1LojJcvPJmk4gJxg5zN52xqw7a3ZcfLGralow/+edtQfdCVHO1tWHoiBGEGXp7upfbJPxF36d6wk24T3UAzn++1cNMRBEbdU0DwJhFfBL4L9UgV5V4wc0D45qBMFYatxHxOtLk+uSebQxsLnf4exGJOCr3AGwzPOuDCZXuk4o6nmwieYKQJwnMtJUT3lx189s2z6bggyjucmPp9RsOmf6byGT0cT4/OKRTRoAXQsGXfDLdUQMhYmwqW3cMooSNEr3L07FsvxC6KqNEXgnC12HYYRWIQomtqGiItHt2mAiLtdFEB/MWmK/50GsdEEz1VG57C1P2N7Ol4c8uUt/fsToyDWnMd9O2TTO5+3xOIPIBy5kBIGgDzPGOrV4PPjSjw52zEj7CafPodDVCFHVardwrJ2UhtE+K7rerOTZ6GyCrwetobiLwej9vapkfCgHO81VL/IugyDs+4nycYnouFxx2KxJT+C+S7YfSsxb3kQI/N1QQi1wrLfKVTAO2lyHu/5/IlkzSuMGgBxIPoclt5ZcAgRo/NRMsasJkci3t2IT0mZ84MZuPLHTYTw20xEo+Qm78A/asOL/AzbPKtGCWwP/ph6cZwiUvCWAbtxee2ZR/bbYwmFx9ILuMCU8zXP6RMhtbeO7XTpqr7KGEfASE8lQxeRUI1ELj9hWgtBoGLq+zhYzDqzYredcY/krn6v8dC9b+zNnQciPynitBNRPysEP/JNvgOk8wjrJB/EkbgXiebCBfm7i5JSAgCeBC5uryo91GSsH/V5TaRBIKUc0lPJ7G5COkT4kx7KSCsz3iDabszC1cjRT9gjw3OO+fXPmbYG2DYCSi/sw3nfFt2QWjICdnxXRXWbTY9lWPN861W/QsvcI2Greb6XgckNt8xpV1HNk3THRKNa1ihvXnKq+lTL3qcCSPGfTXB1rDJXQ+xabxuED9BYk9jpvUmu+fFQv5b21vql27EFl+h5xx1+eLPYrRtKZSm5SD/H2LN/lswan43FvJdH2vy/VQ/CitID6QuOGJ3T31Xn8mad5aldda44pGccdoRdLrXdE1T0LBCNn8jk2OgAZGTsqcMh03jpLgQLafyX+2xDza/lFsMRoY+Le+5tEM6brrFjNs/hJD4rVD9SVbdqn2I+Qwh7iGiu+IUX4PpbzmmupmjZucfgdeDAIZtPsi23AL6IekGL4BEXu9eI0/Pezqhh6n812LtxdnFjLjiEf3IKaNjZKd91MI6gmy6Z5rqY8mqNzbaVsi3PBby+4lYn1H1s5OZ6adGj70ewvhHbyB8jwJGzmcMlqfY5st1tKLddO2o2FIIIAmJHkLsVRa7u9Q4ubUXstQRpl/ksnTZVRcA5wJ8rJ0FQcSIeCwLz5Dkh1m6gj4BK1cYv/kSIu5hlhOiLb4/0hC+SiKAxDQNq6hx2c+p+gHi9wHK45ies5r8mVWkFjIG2z2Yfq/V8CcCGhvtaLNvYSzkn5j6dYmJWKR8WRdAVsh/ajRU//9DvR1KI4D6lEJziQTWBI0kAY2ipz6KO8mbzFL8XThty8rk6Ta2fQ+R0YBPnOu45/QPsOhZqR8O6QLoo9IApRNAolO8Da2B7AfXRhHiq7JxJQkz32eFfL0WOaMalk5g4mtKwr/CZJe1QCkFkGBPmgtr/YnZtY8lP5TJ09WyaXYy/Ldhw4wrs/Oo4dkQWz/GMbPxQyKMLSutn2OoTZ6THBLVGiqVMEpcETf2N5eMCoTTx4Ec9lZdBxYp0q913iHc8e2VHrPHt+H20zOLG/1GuMfgJ5A1b58RuN3m9pu9aLgnEL7Z2zZhBYywjQmXeY2nrXoldjpew0zxYHEVE64NtE7E6vZxrGpfhD9fdxjSeUfOXFznbYhcn0p7oSYY+Wb6J0zSNIV81ZW9wdZveQKR58HzaU8w3Ii6XuUNtl7nDUYWArda/UJ5C+G8M5+o0fzI9zdP8uDtEylrRIYcA1N9Oh31vDu9L1xqAdQCRxnMT3qCrWdoxIHG6d3Whq3TYS4YjD1qCXYMTt5655kbHJ64eS9fcqRL6M8IHgno7XZjbOzVj43Y0lP9ByL+XJTp5Ghz/Swr5L8SasN4FvqZiEzP1Zep4MXS3uz7sxA9ScRfRL5fbbnTp0Z+0mvLvdPaoqM7bhfiw8Bvayzkf5Ca/F2a1h9shNE6GvI9gG0y7ONLjRWqb4SpZi5w/xMN+c9F3iuFqBZ+UU7PHGp+5HmdtJ7EH2S/J8Jlc3w9cC1UUQAACGZJREFUvEMI6QmmH6S/cymHABKuajTII55gZJ7+JgzipPa6aJP/OsOwT8BaZYWDK+YmtJpJzrdCvjN0x4CcS9gbCAfENvTjm4Md1BC6bd8ev5WJDid318W9BYJFXxTS7h1xxaNFn3RmZuc8HoR3Y95jonOD3wa0aaZj5tH0gWDivDx1cx4ZaYX8asNt6SNbn2gI0xoIYYSJfAfkHHDghDGDmPMGIOTpk18pEq7YVmW+5mlovZAalzm2ufa7pq6wmn0n2DZPYJHbUGEVoli6MMS3E9PLeIh7mY2p1phVB0dD9QuI0PxEhOH7KxDslcIcQhQ9GPch5LB95mXii4lksYWtqkJVM11Go0FVnkJpA8YxZdSSAfNAxvhW90XwCDbGR9UvGmY+7yamBDrCXOTxWiO2nQM/6fSXzQwy8b6XKQKCsJ/6CuUWQC3j01id/MLT1vkeBOcG/XUnRW5u8T0Xba6fE4MNCz3Ogwc2oSsOQ3w47HtfjIb8l0SbpoSpsdFWJd6b/HGevzHRU0S8W/Z6qYiLTVMXYW4h7tMG1zZvyrrsqbQItg6JGHyY57Lw0bmAxCrAAB1Xe4Ktp2C/+Gzob/dBiJJnBBsb7Z1hWDPsg0+TLf+MNfueIpKXyODMMS4v8dftBC8QV1fye2WhzAGWXSGA6edQqb8pQYnXPMHI23jY+z3B1tmeYORrakLxbjjuyNqNoz5bE1h6jDfQ6vdC4DDa3Y30F7DIWCtMOiUcnWY2ZH2WOq0bxutu9UsJ4HkYmcbReUA0CAGkhBgJPT2+mYmjJAT1aQC1Tv5y1vtOTua54PMftQ2RIzQO3fV4HXBSM8JaZnLwmmborYwg6A3voTJ6YuVp9K6XUdYGAPQ2/fUk0eH6IZhQ/iKmvGSz/Qqz/YKwhFXgmGgWaI8BIIj7R8ChsWNaTdS/Tv2SgsijVpNvfi6gjL4O5SJpR046Y3dNfSHW5H8cs841ZNCvd5SjYLphHMQGt2maRaSr/E220Eysfk/Ee8/+cvJVsmmc0imUQwA7ifl+vIjJrj17dIV1kNXsPxbT7Ck6tcLfOyFVdZAoP4TzRhLWBQkEVatTBmC6iIQWl4FzQZZVNv0plfCVlF/Q02NSnoalXyyYODjkoHJDIH6WZqBmntxT2um0XN8QOaTHlnYHrytxpvsRvhDvOOjZMnwRwiknrxDT0ZS6UF4qVBrvly5yHcJi38aGcVx8m2s+ptDlgN9jIfK/NYHwdD02pFtF6G2tlrP8952ALbu9IbCquMPcAHEpTV3ARW60XcbD2Q8MZFmdnu9Db1qIDjYRz3taocK8sJsZtnkLd5mrC6UPBMfMwweSLzdPu/6GN5BqvTCHmQ36+9yI7tAJyUFEw/RrRIeW46ybDzVi2+tXz5+03UHixkL6UdT+IwNPOlumBnCldHvGKb5AiF/GwuNmgvJJRCcDzkL8KjTSg0aPvQEC+ZAnED4JeMfpll2suR7ba/WnQYD3E2bd533FSRz47War7rmbuMfWzyL3HygbIdq6s3lh57oced5hgxfUXhaegnDG6Rk9qepezAluVPtZJqG/gNg1TrJh5K+csdOCtNHowAOY8iWfH5ipfXWb23yGiN+jYq5kHca5jW49CufkiN7tU3XrFcPgXlO6bRhxJXAZ3cerb+ithKBLbxW4/lhiFU5fI+ansRB5pibQeiplXWqgjDX5brNC/qNEjPGgUz0x/WFLFmWfQYuFZyD/D2o2TrgZI5GvT8oiEtBpMr26CHKHRE//YvdjIjrdUtvgxehw7wB0JniDTbrJts3/Sr0gh76/GxT5L5Ow/rIAdEuZjXhGgdcp0tM24XvInwAc5Q2Gz9sPOzAI9+vUUI4ZCdMjf5qI62BTvQfvotEbjNzmCUYeF9vQTykPdSf2+C3t4BoZCB9a0/YldHKutW260RsMZz73ZJKftDf5Uh/YC9cEwqexLZjpKCZCjaoflloAd1Dd3GQ+kVmwaxJZnL3FlKaKNU/5q9Xk+64V8n3GYJoIfeJGpD0N6ARkuzgJvSBE15Kr68Bos2+hNjAzXZ9NNJAwC/19IPlUCK1Q/be5211nCH+Lbf4+thFPQufybW7J+gnjHTDHlLjSSurQHivkPxPxTH10JwS4mwGatlcU9tJCv8KQW4RuZaJd5yNfLWA/mMNmWVCHoiH/NVbIPxngRZmjdMckN29uXP+1IBaqPw95PMhzTjTrCBjCC4jQgqQXC2a5J0BzrEMb8o+PNk15djcLoFbMgalmQl71BCN3pXUDB5u5sbQ3+VdaaCQr5D/FCvlGYKreVxL2wRDM/WE/HKEPFgv5b9WlvjfQei5GH/210AyHgQZsI/HEQPNqPp1m25t9f462+P649c4PtxE1rQJEQ0UA9V2YuDWY3P22F5vimGr0v0KAKuRYnKn67qnvQjDXELajHCrstngCkR8Ii+odpXi2v6uJwuFduZWlBUrxkjIVK1HAgxXVT2yhf3gC4Zs9V7YesEO+EDxvQ2Sap23b88Sk0/QOsxRDgClcD9QWQ1qhGWALDEUBTD9KDTF/n+LyLka1572qIDdELoDiWu8NhKdC4M73NES+C/zCmrbOf0Kpxd4ll86uJrws2uSDDpOuTsUvRwsY5WBaYp5MTOOxwLgaC41fithLhHkxBO4BxG8HXn8PZe9Slgme611uPp8yCjRVrjK1wEdBAMv06H2wZWozSCbrgYE+KCroErZARQB7N+a7ZsI+CeaDPk+y9CavxAbbAhUBzLSgPAAb4vhNLVNfy6AqgbK3QEUAmZ4j4kkWjMZqQ6QBXZVMA22BT6oAbsVCYwGp4DX5J1gh33KqXLulBT4JAtgBu+LraN0lgJtFZLKnY3hdLOQ/36oIHppk97p/AwAA//9s5GtMAAAABklEQVQDANgxFUevJkeYAAAAAElFTkSuQmCC" alt="Aquachem logo" style="height:58px;">
         <div>
-          <h1>Aquachem</h1>
-          <div class="subtitle">Proračun i odabir toplinske pumpe za bazen prema volumenu, filteru i lokaciji</div>
+          <h1>Aquachem d.o.o.</h1>
+          <div class="subtitle">Kalkulator toplinskih pumpi za privatne bazene</div>
         </div>
       </div>
       <div class="company">
-        Aquachem<br />
-        Kalkulator bazenske tehnike<br />
-        Toplinske pumpe · filteri · proračun snage
+        Aquachem d.o.o.<br />
+        Industrijska cesta 12<br />
+        10310 Ivanić Grad
       </div>
     </div>
 
@@ -77,7 +77,7 @@
               </select>
             </div>
             <div class="field">
-              <label for="tipBazena">Otvorenost bazena</label>
+              <label for="tipBazena">Pozicija bazena</label>
               <select id="tipBazena">
                 <option value="closed">Zatvoreni</option>
                 <option value="open" selected>Otvoreni</option>
@@ -104,7 +104,7 @@
                 <option value="skimmer">Skimmer</option>
                 <option value="overflow">Preljevni kanal s kompenzacijom</option>
               </select>
-              <div class="hint">Kod preljeva volumen bazena automatski se povećava za 10%.</div>
+              
             </div>
             <div class="field">
               <label for="temperaturaVode">Željena temperatura vode [°C]</label>
@@ -150,7 +150,7 @@
               <option value="48" selected>48 h</option>
               <option value="72">72 h</option>
             </select>
-            <div class="hint">Na temelju tog vremena računa se potrebna snaga za početno zagrijavanje.</div>
+            
           </div>
         </div>
 
@@ -159,7 +159,7 @@
             <div class="field">
               <label for="autoVrijemeZagrijavanja">Vrijeme početnog zagrijavanja pri snazi održavanja [h]</label>
               <input id="autoVrijemeZagrijavanja" type="number" step="0.1" readonly />
-              <div class="hint">Izračunava se automatski iz volumena, ΔT i dobivene snage održavanja.</div>
+            
             </div>
 
             <div class="field">
@@ -221,7 +221,7 @@
               <tbody id="catalogBody"></tbody>
             </table>
           </div>
-          <div class="small" style="margin-top:12px;">Odabire se prvi model iz kataloga čija je snaga veća ili jednaka potrebnoj snazi.</div>
+          <div class="small" style="margin-top:12px;">Odabrani model iz asortimana</div>
         </div>
       </div>
     </div>
@@ -318,7 +318,27 @@ function getModels(){
   return bestCombo;
 }
     function nearestFilter(flowNeeded){ return filterCatalog.reduce((best,item)=>{ const d=Math.abs(item.flow-flowNeeded), bd=Math.abs(best.flow-flowNeeded); if(d<bd) return item; if(d===bd && item.flow>=flowNeeded && best.flow<flowNeeded) return item; return best; },filterCatalog[0]); }
-    function renderCatalog(requiredKw,selected){ $('catalogBody').innerHTML=getModels().map(p=>{ const good=p.snaga>=requiredKw; const chosen=selected&&((selected.type==='single'&&selected.pumps[0].model===p.model)||(selected.type==='double'&&(selected.pumps[0].model===p.model||selected.pumps[1].model===p.model))); const badge=chosen?'<span class="pill ok">Preporučeno</span>':good?'<span class="pill warn">Može</span>':'<span class="pill bad">Premalo</span>'; return `<tr><td>${p.model}</td><td>${p.naziv}</td><td>${fmt(p.snaga)} kW</td><td>${badge}</td></tr>`; }).join(''); }
+    function renderCatalog(requiredKw, selected){
+  if (!selected) {
+    $('catalogBody').innerHTML = '';
+    return;
+  }
+
+  const selectedModels = selected.pumps.map(p => p.model);
+
+  $('catalogBody').innerHTML = getModels()
+    .filter(p => selectedModels.includes(p.model))
+    .map(p => {
+      return `
+        <tr>
+          <td>${p.model}</td>
+          <td>${p.naziv}</td>
+          <td>${fmt(p.snaga)} kW</td>
+          <td><span class="pill ok">Preporučeno</span></td>
+        </tr>
+      `;
+    }).join('');
+}
     function updateShapeFields(){ const regular=val('oblikBazena')==='regular'; $('regularFields').classList.toggle('hidden',!regular); $('irregularFields').classList.toggle('hidden',regular); }
     function normalizeLocationVariants(input){ const raw=input.trim(); if(!raw) return []; const variants=new Set([raw]); variants.add(raw.replace(/\s*-\s*/g,' ')); variants.add(raw.replace(/\s+/g,'-')); variants.add(raw.replace(/-/g,' ')); return Array.from(variants).filter(Boolean); }
     function getSeasonRanges(period){ const year=new Date().getFullYear()-1; if(period==='summer') return [{label:'Ljetni period',start:`${year}-06-01`,end:`${year}-08-31`}]; return [{label:'Rano proljeće',start:`${year}-03-01`,end:`${year}-03-10`},{label:'Kasna jesen',start:`${year}-09-15`,end:`${year}-11-15`}]; }
